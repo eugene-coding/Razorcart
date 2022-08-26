@@ -7,6 +7,7 @@ var services = builder.Services;
 
 // Add services to the container.
 services.AddRazorPages();
+services.AddLocalization();
 
 services.AddDbContext<Context>(options =>
 {
