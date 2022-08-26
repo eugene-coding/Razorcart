@@ -13,7 +13,9 @@ services.AddDbContext<Context>(options =>
     var connectionString = builder.Configuration.GetConnectionString("Razorcart");
     var serverVersion = ServerVersion.AutoDetect(connectionString);
 
-    options.UseMySql(connectionString, serverVersion);
+    options
+        .UseLazyLoadingProxies()
+        .UseMySql(connectionString, serverVersion);
 });
 
 var app = builder.Build();
