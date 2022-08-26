@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+
+using Razorcart.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+services.AddRazorPages();
+
+services.AddDbContext<Context>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("Razorcart");
+
+    options.UseMySQL(connectionString);
+});
 
 var app = builder.Build();
 
