@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
+using Razorcart.Areas.Admin.Services.Catalog;
 using Razorcart.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,8 @@ services.AddDbContext<Context>(options =>
         .UseLazyLoadingProxies()
         .UseMySql(connectionString, serverVersion);
 });
+
+services.AddScoped<IAttributeGroupService, AttributeGroupService>();
 
 var app = builder.Build();
 
