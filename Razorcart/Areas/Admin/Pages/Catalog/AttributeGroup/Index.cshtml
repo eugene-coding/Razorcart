@@ -1,0 +1,44 @@
+﻿@page
+@model Razorcart.Areas.Admin.Pages.Catalog.AttributeGroup.IndexModel
+
+<table class="table table-responsive table-bordered table-hover align-middle">
+    <thead>
+        <tr>
+            <th class="text-center">
+                <input class="form-check-input" type="checkbox" onclick="$('input[name=selectable]').prop('checked', $(this).prop('checked'));" />
+            </th>
+
+            <th class="text-start">@Model.Text["Name"]</th>
+            <th class="text-end">@Model.Text["SortOrder"]</th>
+            <th class="text-end">@Model.Text["Action"]</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @if (Model.AttributeGroups.Count > 0)
+        {
+            @foreach (var attributeGroup in Model.AttributeGroups)
+            {
+                <tr>
+                    <th class="text-center">
+                        <input class="form-check-input" type="checkbox" name="selectable" />
+                    </th>
+
+                    <td class="text-start">@attributeGroup.AttributeGroupDescriptions[0].Name</td>
+                    <td class="text-end">@attributeGroup.SortOrder</td>
+                    <td class="text-end">
+                        <a class="btn btn-primary">
+                            <i class="fa-solid fa-pencil"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td class="text-center" colspan="4">@Model.Text["Empty"]</td>
+            </tr>
+        }
+    </tbody>
+</table>
