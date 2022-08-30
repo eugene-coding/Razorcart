@@ -123,6 +123,9 @@
   <data name="Empty" xml:space="preserve">
     <value>Пусто</value>
   </data>
+  <data name="HeadingTitle" xml:space="preserve">
+    <value>Группы аттрибутов</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Название группы аттрибутов</value>
   </data>
