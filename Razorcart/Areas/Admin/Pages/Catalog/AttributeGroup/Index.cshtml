@@ -3,6 +3,15 @@
 
 <h1>@Model.Text["HeadingTitle"]</h1>
 
+<ol class="breadcrumb">
+    @foreach (var breadcrumb in @Model.Breadcrumbs)
+    {
+        <li class="breadcrumb-item">
+            <a href="@breadcrumb.Url">@breadcrumb.Name</a>
+        </li>
+    }
+</ol>
+
 <table class="table table-responsive table-bordered table-hover align-middle">
     <thead>
         <tr>
@@ -28,6 +37,7 @@
 
                     <td class="text-start">@attributeGroup.AttributeGroupDescriptions[0].Name</td>
                     <td class="text-end">@attributeGroup.SortOrder</td>
+
                     <td class="text-end">
                         <a class="btn btn-primary">
                             <i class="fa-solid fa-pencil"></i>
