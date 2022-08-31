@@ -20,4 +20,17 @@ public class AttributeGroupService : Service, IAttributeGroupService
 
         return result;
     }
+
+    public async Task DeleteAttributeGroupAsync(int id)
+    {
+        var attributeGroup = await Context.AttributeGroups
+            .SingleOrDefaultAsync(ag => ag.Id == id);
+
+        if (attributeGroup is not null)
+        {
+            Context.AttributeGroups.Remove(attributeGroup);
+
+            await Context.SaveChangesAsync();
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Localization;
 
@@ -16,8 +17,8 @@ public class IndexModel : PageModel
 
         Text = text;
         LinkGenerator = linkGenerator;
-        AttributeGroups = default!;
-        Breadcrumbs = default!;
+        AttributeGroups = new List<Data.Models.AttributeGroup>();
+        Breadcrumbs = new List<Breadcrumb>();
     }
 
     public IStringLocalizer<IndexModel> Text { get; init; }
@@ -37,5 +38,12 @@ public class IndexModel : PageModel
         };
 
         AttributeGroups = await _service.GetAttributeGroupsAsync();
+    }
+
+    public async Task<RedirectToPageResult> OnPostDeleteAsync(int id)
+    {
+        await _service.DeleteAttributeGroupAsync(id);
+
+        return RedirectToPage();
     }
 }
