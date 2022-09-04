@@ -82,6 +82,18 @@ public static class SeedData
                 });
         }
 
+        if (!context.Settings.Any())
+        {
+            context.Add(
+                new Setting
+                {
+                    Code = Code.Config,
+                    Area = Area.Admin,
+                    Key = "itemsPerPage",
+                    Value = "20"
+                });
+        }
+
         context.SaveChanges();
     }
 }

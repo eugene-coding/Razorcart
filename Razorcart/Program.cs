@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using Razorcart.Areas.Admin.Services.Catalog;
+using Razorcart.Areas.Admin.Services.Settings;
 using Razorcart.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ services.AddDbContext<Context>(options =>
 });
 
 services.AddScoped<IAttributeGroupService, AttributeGroupService>();
+services.AddScoped<ISettingService, SettingService>();
 
 var app = builder.Build();
 

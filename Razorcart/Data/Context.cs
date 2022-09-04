@@ -13,4 +13,5 @@ public class Context : DbContext
     public DbSet<AttributeGroup> AttributeGroups => Set<AttributeGroup>();
     public DbSet<AttributeGroupDescription> AttributeGroupDescriptions => Set<AttributeGroupDescription>();
     public DbSet<Language> Languages => Set<Language>();
+    public DbSet<Setting> Settings => Set<Setting>();
 }
