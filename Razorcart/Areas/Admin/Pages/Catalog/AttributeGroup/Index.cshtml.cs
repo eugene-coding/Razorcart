@@ -32,6 +32,9 @@ public class IndexModel : PageModel
     public IStringLocalizer<IndexModel> Text { get; init; }
     public LinkGenerator LinkGenerator { get; init; }
 
+    [BindProperty(SupportsGet = true)]
+    public int? PageNumber { get; set; }
+
     public IEnumerable<Breadcrumb> Breadcrumbs { get; private set; }
     public IReadOnlyCollection<Data.Models.AttributeGroup> AttributeGroups { get; private set; }
 
