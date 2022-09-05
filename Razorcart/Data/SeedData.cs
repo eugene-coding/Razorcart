@@ -16,6 +16,7 @@ public static class SeedData
         }
 
         Language russian = CreateLanguageIfNotFound(context, nameof(russian));
+        Language english = CreateLanguageIfNotFound(context, nameof(english));
 
         if (!context.AttributeGroups.Any())
         {
@@ -28,6 +29,11 @@ public static class SeedData
                         {
                             Name = "Память",
                             Language = russian
+                        },
+                        new AttributeGroupDescription
+                        {
+                            Name ="Memory",
+                            Language = english
                         }
                     },
                     SortOrder = 2,
@@ -41,6 +47,11 @@ public static class SeedData
                         {
                             Name = "Технические",
                             Language = russian
+                        },
+                        new AttributeGroupDescription
+                        {
+                            Name ="Technical",
+                            Language = english
                         }
                     },
                     SortOrder = 1,
@@ -54,6 +65,11 @@ public static class SeedData
                         {
                             Name = "Материнская плата",
                             Language = russian
+                        },
+                        new AttributeGroupDescription
+                        {
+                            Name ="Motherboard",
+                            Language = english
                         }
                     },
                     SortOrder = 3,
@@ -67,6 +83,11 @@ public static class SeedData
                         {
                             Name = "Процессор",
                             Language = russian
+                        },
+                        new AttributeGroupDescription
+                        {
+                            Name ="Processor",
+                            Language = english
                         }
                     },
                     SortOrder = 4,
@@ -76,13 +97,20 @@ public static class SeedData
 
         if (!context.Settings.Any())
         {
-            context.Add(
+            context.AddRange(
                 new Setting
                 {
                     Area = Area.Admin,
                     Code = Code.Config,
                     Key = "itemsPerPage",
                     Value = "2"
+                },
+                new Setting
+                {
+                    Area = Area.Admin,
+                    Code = Code.Config,
+                    Key = "language",
+                    Value = russian.Id.ToString()
                 });
         }
 
