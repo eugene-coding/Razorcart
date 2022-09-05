@@ -4,4 +4,5 @@ public interface ISettingService
 {
     Task<int> GetItemsPerPageAsync();
     Task SetItemsPerPageAsync(int pagination);
+    Task<int> GetLanguageIdAsync();
 }

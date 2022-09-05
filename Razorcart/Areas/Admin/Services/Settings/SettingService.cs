@@ -9,6 +9,7 @@ namespace Razorcart.Areas.Admin.Services.Settings;
 public class SettingService : Service, ISettingService
 {
     private const string ItemsPerPageKey = "itemsPerPage";
+    private const string LanguageKey = "language";
 
     public SettingService(Context context) : base(context)
     {
@@ -34,6 +35,18 @@ public class SettingService : Service, ISettingService
         }
 
         await SetAsync(Code.Config, ItemsPerPageKey, itemsPerPage.ToString());
+    }
+
+    public async Task<int> GetLanguageIdAsync()
+    {
+        var language = await GetAsync(Code.Config, LanguageKey);
+
+        if (int.TryParse(language, out int result))
+        {
+            return result;
+        }
+
+        return default;
     }
 
     private async Task<string> GetAsync(Code code, string key)
