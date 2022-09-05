@@ -15,15 +15,7 @@ public static class SeedData
             throw new ArgumentNullException("Null Context");
         }
 
-        Language russian = new()
-        {
-            Id = 1
-        };
-
-        if (!context.Languages.Any())
-        {
-            context.Languages.Add(russian);
-        }
+        Language russian = CreateLanguageIfNotFound(context, nameof(russian));
 
         if (!context.AttributeGroups.Any())
         {
@@ -35,7 +27,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Память",
-                            LanguageId = russian.Id
+                            Language = russian
                         }
                     },
                     SortOrder = 2,
@@ -48,7 +40,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Технические",
-                            LanguageId = russian.Id
+                            Language = russian
                         }
                     },
                     SortOrder = 1,
@@ -61,7 +53,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Материнская плата",
-                            LanguageId = russian.Id
+                            Language = russian
                         }
                     },
                     SortOrder = 3,
@@ -74,7 +66,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Процессор",
-                            LanguageId = russian.Id
+                            Language = russian
                         }
                     },
                     SortOrder = 4,
@@ -87,13 +79,30 @@ public static class SeedData
             context.Add(
                 new Setting
                 {
-                    Code = Code.Config,
                     Area = Area.Admin,
+                    Code = Code.Config,
                     Key = "itemsPerPage",
-                    Value = "20"
+                    Value = "2"
                 });
         }
 
         context.SaveChanges();
+    }
+
+    private static Language CreateLanguageIfNotFound(Context context, string name)
+    {
+        if (!context.Languages.Any(l => l.Name == name))
+        {
+            context.Languages.Add(new Language
+            {
+                Name = name
+            });
+
+            context.SaveChanges();
+        }
+
+        var language = context.Languages.Single(l => l.Name == name);
+
+        return language;
     }
 }
