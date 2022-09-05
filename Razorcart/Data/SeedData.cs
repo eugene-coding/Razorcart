@@ -35,7 +35,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Память",
-                            Language = russian
+                            LanguageId = russian.Id
                         }
                     },
                     SortOrder = 2,
@@ -48,7 +48,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Технические",
-                            Language = russian
+                            LanguageId = russian.Id
                         }
                     },
                     SortOrder = 1,
@@ -61,7 +61,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Материнская плата",
-                            Language = russian
+                            LanguageId = russian.Id
                         }
                     },
                     SortOrder = 3,
@@ -74,7 +74,7 @@ public static class SeedData
                         new AttributeGroupDescription
                         {
                             Name = "Процессор",
-                            Language = russian
+                            LanguageId = russian.Id
                         }
                     },
                     SortOrder = 4,
