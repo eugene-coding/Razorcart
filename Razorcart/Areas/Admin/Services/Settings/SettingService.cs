@@ -26,9 +26,14 @@ public class SettingService : Service, ISettingService
         return default;
     }
 
-    public async Task SetItemsPerPageAsync(int pagination)
+    public async Task SetItemsPerPageAsync(int itemsPerPage)
     {
-        await SetAsync(Code.Config, ItemsPerPageKey, pagination.ToString());
+        if (itemsPerPage < 1)
+        {
+            itemsPerPage = 1;
+        }
+
+        await SetAsync(Code.Config, ItemsPerPageKey, itemsPerPage.ToString());
     }
 
     private async Task<string> GetAsync(Code code, string key)
