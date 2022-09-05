@@ -3,17 +3,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Localization;
 
 using Razorcart.Areas.Admin.Services.Catalog;
+using Razorcart.Areas.Admin.Services.Settings;
 using Razorcart.Common;
+using Razorcart.Data;
 
 namespace Razorcart.Areas.Admin.Pages.Catalog.AttributeGroup;
 
 public class IndexModel : PageModel
 {
-    private readonly IAttributeGroupService _service;
+    private readonly ISettingService _settingService;
+    private readonly IAttributeGroupService _attributeGroupService;
 
-    public IndexModel(IStringLocalizer<IndexModel> text, LinkGenerator linkGenerator, IAttributeGroupService service)
+    public IndexModel(
+        IStringLocalizer<IndexModel> text,
+        LinkGenerator linkGenerator,
+        ISettingService settingService,
+        IAttributeGroupService attributeGroupService)
     {
-        _service = service;
+        _settingService = settingService;
+        _attributeGroupService = attributeGroupService;
 
         Text = text;
         LinkGenerator = linkGenerator;
@@ -37,12 +45,18 @@ public class IndexModel : PageModel
             new (Text["HeadingTitle"], Request.Path + Request.QueryString)
         };
 
-        AttributeGroups = await _service.GetAttributeGroupsAsync();
+        var itemsPerPage = await _settingService.GetItemsPerPageAsync();
+
+        FilterData filterData = PageNumber.HasValue 
+            ? new(itemsPerPage, PageNumber.Value) 
+            : new(itemsPerPage);
+
+        AttributeGroups = await _attributeGroupService.GetAttributeGroupsAsync(filterData);
     }
 
     public async Task<RedirectToPageResult> OnPostDeleteAsync(int id)
     {
-        await _service.DeleteAttributeGroupAsync(id);
+        await _attributeGroupService.DeleteAttributeGroupAsync(id);
 
         return RedirectToPage();
     }
