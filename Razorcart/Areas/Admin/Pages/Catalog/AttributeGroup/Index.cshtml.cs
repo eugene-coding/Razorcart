@@ -41,13 +41,7 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        var query = Request.QueryString.ToString();
-
-        Breadcrumbs = new List<Breadcrumb>()
-        {
-            new ("Главная", LinkGenerator.GetPathByPage(HttpContext, "/Index")),
-            new (Text["HeadingTitle"], Request.Path + Request.QueryString)
-        };
+        Breadcrumbs = CreateBreadcrumbs();
 
         var itemsPerPage = await _settingService.GetItemsPerPageAsync();
 
@@ -63,5 +57,18 @@ public class IndexModel : PageModel
         await _attributeGroupService.DeleteAttributeGroupAsync(id);
 
         return RedirectToPage();
+    }
+
+    private List<Breadcrumb> CreateBreadcrumbs()
+    {
+        var query = Request.QueryString.ToString();
+
+        var breadcrumbs = new List<Breadcrumb>()
+        {
+            new ("Главная", LinkGenerator.GetPathByPage(HttpContext, "/Index")),
+            new (Text["HeadingTitle"], Request.Path + Request.QueryString)
+        };
+
+        return breadcrumbs;
     }
 }
