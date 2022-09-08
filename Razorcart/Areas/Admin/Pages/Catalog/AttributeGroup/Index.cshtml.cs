@@ -41,8 +41,6 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        var query = Request.QueryString.ToString();
-
         Breadcrumbs = new List<Breadcrumb>()
         {
             new ("Главная", LinkGenerator.GetPathByPage(HttpContext, "/Index")),
