@@ -1,11 +1,12 @@
-﻿using Razorcart.Data;
-using Razorcart.Data.Models;
+﻿using Razorcart.Areas.Admin.DTO.Catalog;
+using Razorcart.Data;
+
 
 namespace Razorcart.Areas.Admin.Services.Catalog;
 
 public interface IAttributeGroupService
 {
-    Task<List<AttributeGroup>> GetAttributeGroupsAsync();
-    Task<List<AttributeGroup>> GetAttributeGroupsAsync(FilterData filterData);
+    Task<List<AttributeGroupDTO>> GetAttributeGroupsAsync();
+    Task<List<AttributeGroupDTO>> GetAttributeGroupsAsync(FilterData filterData);
     Task DeleteAttributeGroupAsync(int id);
 }

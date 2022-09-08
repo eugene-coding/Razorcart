@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
+using Razorcart.Areas.Admin.DTO.Catalog;
 using Razorcart.Areas.Admin.Services.Settings;
 using Razorcart.Data;
-using Razorcart.Data.Models;
 using Razorcart.Services;
 
 namespace Razorcart.Areas.Admin.Services.Catalog;
@@ -17,7 +16,7 @@ public class AttributeGroupService : Service, IAttributeGroupService
         _settingService = settingService;
     }
 
-    public async Task<List<AttributeGroup>> GetAttributeGroupsAsync()
+    public async Task<List<AttributeGroupDTO>> GetAttributeGroupsAsync()
     {
         var query = await GetAttributeGroupQueryAsync();
 
@@ -26,7 +25,7 @@ public class AttributeGroupService : Service, IAttributeGroupService
         return result;
     }
 
-    public async Task<List<AttributeGroup>> GetAttributeGroupsAsync(FilterData filterData)
+    public async Task<List<AttributeGroupDTO>> GetAttributeGroupsAsync(FilterData filterData)
     {
         var initialQuery = await GetAttributeGroupQueryAsync();
 
@@ -34,11 +33,11 @@ public class AttributeGroupService : Service, IAttributeGroupService
              ? initialQuery.OrderBy(a => a.SortOrder)
              : initialQuery.OrderByDescending(a => a.SortOrder);
 
-        var limitedQuery = orderedQuery
+        var query = orderedQuery
             .Skip(filterData.Skip)
             .Take(filterData.Take);
 
-        var result = await limitedQuery.ToListAsync();
+        var result = await query.ToListAsync();
 
         return result;
     }
@@ -56,13 +55,18 @@ public class AttributeGroupService : Service, IAttributeGroupService
         }
     }
 
-    private async Task<IIncludableQueryable<AttributeGroup, IEnumerable<AttributeGroupDescription>>> GetAttributeGroupQueryAsync()
+    private async Task<IQueryable<AttributeGroupDTO>> GetAttributeGroupQueryAsync()
     {
         var languageId = await _settingService.GetLanguageIdAsync();
 
         var query = Context.AttributeGroups
-            .Include(ag => ag.AttributeGroupDescriptions
-                .Where(agd => agd.LanguageId == languageId));
+            .Select(ag => new AttributeGroupDTO
+            {
+                Id = ag.Id,
+                Name = ag.AttributeGroupDescriptions
+                    .Single(agd => agd.LanguageId == languageId).Name,
+                SortOrder = ag.SortOrder
+            });
 
         return query;
     }

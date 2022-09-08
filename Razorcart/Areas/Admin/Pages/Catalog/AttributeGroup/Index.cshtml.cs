@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Localization;
 
+using Razorcart.Areas.Admin.DTO.Catalog;
 using Razorcart.Areas.Admin.Services.Catalog;
 using Razorcart.Areas.Admin.Services.Settings;
 using Razorcart.Common;
@@ -25,7 +26,7 @@ public class IndexModel : PageModel
 
         Text = text;
         LinkGenerator = linkGenerator;
-        AttributeGroups = new List<Data.Models.AttributeGroup>();
+        AttributeGroups = new List<AttributeGroupDTO>();
         Breadcrumbs = new List<Breadcrumb>();
     }
 
@@ -36,7 +37,7 @@ public class IndexModel : PageModel
     public int? PageNumber { get; set; }
 
     public IEnumerable<Breadcrumb> Breadcrumbs { get; private set; }
-    public IReadOnlyCollection<Data.Models.AttributeGroup> AttributeGroups { get; private set; }
+    public IReadOnlyCollection<AttributeGroupDTO> AttributeGroups { get; private set; }
 
     public async Task OnGetAsync()
     {
