@@ -8,8 +8,8 @@ namespace Razorcart.Data.Models;
 public class Setting
 {
     public int Id { get; set; }
-    public Code Code { get; set; }
     public Area Area { get; set; }
+    public Code Code { get; set; }
 
     [MaxLength(128)]
     public string Key { get; set; } = string.Empty;
@@ -17,13 +17,13 @@ public class Setting
     public string Value { get; set; } = string.Empty;
 }
 
-public enum Code
-{
-    Config
-}
-
 public enum Area
 {
     Admin,
     Customer
+}
+
+public enum Code
+{
+    Config
 }
